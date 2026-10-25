@@ -13,14 +13,12 @@ CORS(app)
 # MYSQL SETTINGS
 # ==================================================
 
-MYSQL_HOST = "localhost"
-MYSQL_USER = "root"
-
-# IMPORTANT:
-# Use the password that actually works on your computer.
+MYSQL_HOST = os.environ.get("MYSQL_HOST", "localhost")
+MYSQL_USER = os.environ.get("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD")
+MYSQL_PORT = int(os.environ.get("MYSQL_PORT", "3306"))
+DATABASE_NAME = os.environ.get("DATABASE_NAME", "localconnect")
 
-DATABASE_NAME = "localconnect"
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -33,129 +31,89 @@ def get_db_connection():
 
     return mysql.connector.connect(
         host=MYSQL_HOST,
+        port=MYSQL_PORT,
         user=MYSQL_USER,
         password=MYSQL_PASSWORD,
-        database=DATABASE_NAME
+        database=DATABASE_NAME,
+        connection_timeout=15,
+        ssl_ca=str(BASE_DIR / "ca.pem"),
+        ssl_verify_cert=True,
+        ssl_verify_identity=True
     )
 
-
 # ==================================================
-# CREATE DATABASE AND TABLES
+# CREATE TABLES IN THE EXISTING DATABASE
 # ==================================================
 
 def setup_database():
 
-    # Create database if it does not exist
-    connection = mysql.connector.connect(
-        host=MYSQL_HOST,
-        user=MYSQL_USER,
-        password=MYSQL_PASSWORD
-    )
-
-    cursor = connection.cursor()
-
-    cursor.execute(
-        f"CREATE DATABASE IF NOT EXISTS `{DATABASE_NAME}`"
-    )
-
-    cursor.close()
-    connection.close()
-
-    # Connect to LocalConnect database
     connection = get_db_connection()
     cursor = connection.cursor()
 
-    # Users table
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            email VARCHAR(150) NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
-
-    # Marketplace table
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS marketplace (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            product VARCHAR(100) NOT NULL,
-            price DECIMAL(10,2) NOT NULL
-        )
-    """)
-
-    # Park reports table
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS park_reports (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            issue TEXT NOT NULL,
-            location VARCHAR(200) NOT NULL
-        )
-    """)
-
-    # Animal adoption table
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS adoptions (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            animal VARCHAR(100) NOT NULL,
-            phone VARCHAR(20) NOT NULL
-        )
-    """)
-
-    # Senior support table
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS senior_support (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            help TEXT NOT NULL,
-            phone VARCHAR(20) NOT NULL
-        )
-    """)
-
-    connection.commit()
-    cursor.close()
-    connection.close()
-
-    print("Database and tables are ready!")
-
-
-# ==================================================
-# TEST DATABASE
-# ==================================================
-
-@app.route("/test-db", methods=["GET"])
-def test_db():
-
     try:
 
-        connection = get_db_connection()
-        cursor = connection.cursor()
+        # Users table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                email VARCHAR(150) NOT NULL UNIQUE,
+                password VARCHAR(255) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
 
-        cursor.execute("SELECT 1")
-        result = cursor.fetchone()
+        # Marketplace table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS marketplace (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                product VARCHAR(100) NOT NULL,
+                price DECIMAL(10,2) NOT NULL
+            )
+        """)
 
-        cursor.close()
-        connection.close()
+        # Park reports table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS park_reports (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                issue TEXT NOT NULL,
+                location VARCHAR(200) NOT NULL
+            )
+        """)
 
-        return jsonify({
-            "success": True,
-            "message": "MySQL connection successful",
-            "result": result
-        })
+        # Animal adoption table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS adoptions (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                animal VARCHAR(100) NOT NULL,
+                phone VARCHAR(20) NOT NULL
+            )
+        """)
+
+        # Senior citizen support table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS senior_support (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                help TEXT NOT NULL,
+                phone VARCHAR(20) NOT NULL
+            )
+        """)
+
+        connection.commit()
+
+        print("All LocalConnect tables are ready!")
 
     except Error:
+        connection.rollback()
+        raise
 
-        app.logger.exception("Database test failed")
-
-        return jsonify({
-            "success": False,
-            "message": "MySQL connection failed"
-        }), 500
-
+    finally:
+        cursor.close()
+        connection.close()
 
 # ==================================================
 # REGISTER
@@ -575,21 +533,15 @@ def serve_files(filename):
 if __name__ == "__main__":
 
     try:
-
         setup_database()
+        print("LocalConnect database tables are ready!")
 
-        print("===================================")
-        print("LocalConnect backend is ready!")
-        print("===================================")
-
-    except Error as error:
-
-        print("MYSQL SETUP FAILED:", error)
-        print("Check your MySQL password and server.")
+    except Error:
+        app.logger.exception("MySQL setup failed")
         raise SystemExit(1)
 
     app.run(
-        host="127.0.0.1",
-        port=5000,
-        debug=True
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=False
     )
