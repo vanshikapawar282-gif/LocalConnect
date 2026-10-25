@@ -505,6 +505,30 @@ def senior_help():
 # OPEN YOUR HOMEPAGE
 # ==================================================
 
+@app.route("/setup-database-temp-7391", methods=["GET"])
+def setup_database_temp():
+    from flask import abort
+
+    token = request.headers.get("X-Setup-Token", "")
+    expected_token = os.environ.get("SETUP_TOKEN", "")
+
+    if not expected_token or token != expected_token:
+        abort(403)
+
+    try:
+        setup_database()
+        return jsonify({
+            "success": True,
+            "message": "All five database tables created successfully!"
+        }), 200
+
+    except Exception:
+        app.logger.exception("Database setup failed")
+        return jsonify({
+            "success": False,
+            "message": "Database setup failed. Check Render logs."
+        }), 500
+
 @app.route("/")
 def home():
 
@@ -529,6 +553,11 @@ def serve_files(filename):
 # ==================================================
 # RUN SERVER
 # ==================================================
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "LocalConnect backend is running"})
+
 
 if __name__ == "__main__":
 
