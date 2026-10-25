@@ -1,7 +1,7 @@
 const API_URL = "https://localconnect-u070.onrender.com";
 
+// ================= REGISTER =================
 async function register() {
-
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
@@ -12,17 +12,12 @@ async function register() {
     }
 
     try {
-
         const response = await fetch(`${API_URL}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password
-            })
+            body: JSON.stringify({ name, email, password })
         });
 
         const data = await response.json();
@@ -36,13 +31,13 @@ async function register() {
 
     } catch (error) {
         console.error("Registration error:", error);
-        alert("Unable to connect to server. Please try again.");
+        alert("Connection error: " + error.message);
     }
 }
 
 
+// ================= LOGIN =================
 async function login() {
-
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
@@ -52,22 +47,23 @@ async function login() {
     }
 
     try {
-
         const response = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
+            body: JSON.stringify({ email, password })
         });
 
         const data = await response.json();
 
-        if (data.success) {
+        if (!response.ok) {
+            alert("Server error (" + response.status + "): " +
+                  (data.message || "Please check the server logs."));
+            return;
+        }
 
+        if (data.success) {
             alert("Login successful!");
 
             localStorage.setItem("userId", data.user.id);
@@ -75,13 +71,12 @@ async function login() {
             localStorage.setItem("userEmail", data.user.email);
 
             window.location.href = "ty.html";
-
         } else {
             alert(data.message || "Login failed");
         }
 
     } catch (error) {
         console.error("Login error:", error);
-        alert("Unable to connect to server. Please try again.");
+        alert("Connection error: " + error.message);
     }
 }
