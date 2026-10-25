@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Senior Citizen Support</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="form-box">
+
+    <h1>Senior Citizen Support 👴</h1>
+
+    <p>Connect senior citizens with helpful community services.</p>
+
+    <input id="name" placeholder="Senior Citizen Name">
+
+    <input id="help" placeholder="What help is needed?">
+
+    <input id="phone" placeholder="Contact Number">
+
+    <button onclick="requestHelp()">Request Help</button>
+
+</div>
+
+<script>
+function requestHelp() {
+
+    fetch("/senior-help", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            help: document.getElementById("help").value,
+            phone: document.getElementById("phone").value
+        })
+
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message));
+}
+</script>
+
+</body>
+</html>

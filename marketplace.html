@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Artisan Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="form-box">
+
+    <h1>Artisan Marketplace 🛍️</h1>
+
+    <p>Discover and support local artisans by purchasing handmade products directly.</p>
+
+    <h3>List Your Product</h3>
+
+    <input id="name" placeholder="Your Name">
+
+    <input id="product" placeholder="Product Name">
+
+    <input id="price" placeholder="Price">
+
+    <button onclick="addProduct()">Add Product</button>
+
+</div>
+
+<script>
+function addProduct() {
+
+    fetch("/add-product", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            product: document.getElementById("product").value,
+            price: document.getElementById("price").value
+        })
+
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message));
+}
+</script>
+
+
+</body>
+</html>

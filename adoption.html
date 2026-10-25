@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Adoption</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="form-box">
+
+    <h1>Animal Adoption 🐾</h1>
+
+    <p>Give a loving home to an animal in need.</p>
+
+    <input id="name" placeholder="Your Name">
+
+    <input id="animal" placeholder="Animal you want to adopt">
+
+    <input id="phone" placeholder="Phone Number">
+
+    <button onclick="adopt()">Apply for Adoption</button>
+
+</div>
+
+<script>
+function adopt() {
+
+    fetch("/adopt", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            animal: document.getElementById("animal").value,
+            phone: document.getElementById("phone").value
+        })
+
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message));
+}
+</script>
+
+</body>
+</html>

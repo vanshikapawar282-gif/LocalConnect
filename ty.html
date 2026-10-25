@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalConnect | Community Welfare</title>
+     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }  
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f3f8fc;
+            color: #183c60;
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            background-color: #123e63;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 10%;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f5a342;
+        }   
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav ul li a:hover {
+            color: #f5a342;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            margin-left: 15px;
+            padding: 10px 22px;
+            border-radius: 5px;
+        }
+
+        .register {
+            background-color: #f5a342;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 340px;
+            display: flex;
+            align-items: center;
+            padding: 50px 8%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(12, 58, 91, 0.96),
+                    rgba(12, 58, 91, 0.70),
+                    rgba(12, 58, 91, 0.05)
+                ),
+                url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e")
+                center/cover no-repeat;
+
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #f5a342;
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 15px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #f5a342;
+            color: white;
+        }
+
+        .btn-secondary {
+            border: 2px solid white;
+            color: white;
+        }
+
+        /* SERVICES SECTION */
+        .services {
+            padding: 30px 8%;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 32px;
+            color: #123e63;
+            margin-bottom: 10px;
+        }
+
+        .services-subtitle {
+            color: #687888;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .service-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .service-card {
+            background-color: white;
+            padding: 25px;
+            border: 1px solid #e1e8ef;
+            border-radius: 7px;
+            text-align: left;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin-bottom: 18px;
+        }
+
+        .red {
+            background-color: #ffe6e9;
+        }
+
+        .green {
+            background-color: #e2f7e7;
+        }
+
+        .purple {
+            background-color: #eee7ff;
+        }
+
+        .orange {
+            background-color: #fff0d4;
+        }
+
+        .service-card h3 {
+            font-size: 19px;
+            margin-bottom: 12px;
+            color: #123e63;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: #687888;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-card a {
+            text-decoration: none;
+            color: #164d7a;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            padding: 30px 10%;
+            background-color: #ffffff;
+        }
+
+        .about-icon {
+            font-size: 100px;
+            background-color: #e8f5ff;
+            border-radius: 50%;
+            padding: 20px;
+        }
+
+        .about-content {
+            max-width: 600px;
+        }
+
+        .about h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: #123e63;
+        }
+
+        .about p {
+            font-size: 15px;
+            color: #687888;
+            line-height: 1.8;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #123e63;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            font-size: 14px;
+            color: #d4e0ec;
+            margin-bottom: 8px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .service-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                gap: 15px;
+            }
+
+            .nav-buttons a {
+                margin-left: 5px;
+            }
+
+            .service-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 40px 6%;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .about {  
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <div class="logo">
+            👥 Local<span>Connect</span>
+        </div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <a href="login.html">Login</a>
+            <a href="register.html" class="register">Register</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+
+            <h1>
+                Local Business &<br>
+                <span>Community Welfare</span>
+            </h1>
+
+            <p>
+                Connecting local artisans, citizens, volunteers,
+                civic bodies and community services in one platform.
+            </p>
+
+            <a href="#services" class="btn btn-primary">
+                Explore Services →
+            </a>
+
+            <a href="#about" class="btn btn-secondary">
+                Join Our Community
+            </a>
+
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+
+        <h2>Our Community Services</h2>
+
+        <p class="services-subtitle">
+            One platform for local business and community welfare.
+        </p>
+
+        <div class="service-container">
+
+            <!-- SERVICE 1 -->
+            <div class="service-card">
+
+                <div class="service-icon red">
+                    🛍️
+                </div>
+
+                <h3>Artisan Marketplace</h3>
+
+                <p>s
+                    Discover and support local artisans by
+                    purchasing their handmade products directly.
+                </p>
+
+                <a href="marketplace.html">
+                    Explore Marketplace →
+                </a>
+
+            </div>
+
+            <!-- SERVICE 2 -->
+            <div class="service-card">
+
+                <div class="service-icon green">
+                    🌳
+                </div>
+
+                <h3>Park Maintenance</h3>
+
+                <p>
+                    Report damaged benches, lights, garbage
+                    and other public park maintenance issues.
+                </p>
+
+                <a href="park.html">
+                    Report an Issue →
+                </a>
+
+            </div>
+
+            <!-- SERVICE 3 -->
+            <div class="service-card">
+
+                <div class="service-icon purple">
+                    🐾
+                </div>
+
+                <h3>Animal Adoption</h3>
+
+                <p>
+                    Help stray animals find loving families
+                    through our adoption support system.
+                </p>
+
+                <a href="adoption.html">
+                    Find a Friend →
+                </a>
+
+            </div>
+
+            <!-- SERVICE 4 -->
+            <div class="service-card">
+
+                <div class="service-icon orange">
+                    👴
+                </div>
+
+                <h3>Senior Citizen Support</h3>
+
+                <p>
+                    Connect senior citizens with volunteers
+                    for check-ins and grocery assistance.
+                </p>
+
+                <a href="senior.html">
+                    Get Support →
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+
+        <div class="about-icon">
+            🏙️
+        </div>
+
+        <div class="about-content">
+
+            <h2>About LocalConnect</h2>
+
+            <p>
+                LocalConnect is a web-based community platform
+                designed to strengthen the connection between
+                local businesses, citizens and community welfare
+                initiatives.
+            </p>
+
+            <p>
+                Our mission is to promote local businesses,
+                improve public services, support animal adoption
+                and help senior citizens through community
+                participation.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>👥 LocalConnect</h3>
+
+        <p>
+            Supporting local businesses. Strengthening communities.
+        </p>
+
+        <p>
+            © 2026 LocalConnect. All Rights Reserved.
+        </p>
+
+    </footer>
+</body>
+</html>

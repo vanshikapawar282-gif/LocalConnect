@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Park Maintenance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="form-box">
+
+    <h1>Park Maintenance 🌳</h1>
+
+    <p>Report damaged benches, lights, garbage and other park issues.</p>
+
+    <input id="name" placeholder="Your Name">
+
+    <input id="issue" placeholder="Describe the Issue">
+
+    <input id="location" placeholder="Park Location">
+
+    <button onclick="reportIssue()">Report Issue</button>
+
+</div>
+
+<script>
+function reportIssue() {
+
+    fetch("/report-issue", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            issue: document.getElementById("issue").value,
+            location: document.getElementById("location").value
+        })
+
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message));
+}
+</script>
+
+</body>
+</html>
