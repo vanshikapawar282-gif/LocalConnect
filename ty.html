@@ -17,65 +17,70 @@
             color: #183c60;
         }
 
-        /* NAVIGATION BAR */
-        nav {
-            background-color: #123e63;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 5%;
-        }
+         /* NAVIGATION BAR */
+nav {
+    background-color: #123e63;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 5%;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
 
-        .logo span {
-            color: #f5a342;
-        }   
+.logo span {
+    color: #f5a342;
+}
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 18px;
-            align-items:center;
-            flex-wrap:nowrap;
-        }
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    flex: 1;
+}
 
-         nav ul li{
-             white-space:nowrap;
-         }
+nav ul li {
+    white-space: nowrap;
+}
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 15px;
-        }
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
 
-        nav ul li a:hover {
-            color: #f5a342;
-        }
+nav ul li a:hover {
+    color: #f5a342;
+}
 
-        .nav-buttons {
+.nav-buttons {
     display: flex;
     align-items: center;
     gap: 8px;
-    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .nav-buttons a {
     text-decoration: none;
     color: white;
-    margin-left: 0;
     padding: 9px 14px;
     border-radius: 5px;
+    white-space: nowrap;
 }
 
-        .register {
-            background-color: #f5a342;
-        }
+.register {
+    background-color: #f5a342;
+}
 
         /* HERO SECTION */
         .hero {
@@ -276,6 +281,20 @@
         }
 
         /* MOBILE RESPONSIVE */
+         @media (max-width: 1200px) {
+    nav {
+        justify-content: center;
+    }
+
+    nav ul {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    .nav-buttons {
+        margin-left: auto;
+    }
+}
         @media (max-width: 900px) {
             nav {
                 flex-direction: column;
