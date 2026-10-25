@@ -1,3 +1,5 @@
+const API_URL = "https://localconnect-u070.onrender.com";
+
 async function register() {
 
     const name = document.getElementById("name").value.trim();
@@ -11,13 +13,11 @@ async function register() {
 
     try {
 
-        const response = await fetch("http://localhost:5000/register", {
+        const response = await fetch(`${API_URL}/register`, {
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify({
                 name: name,
                 email: email,
@@ -28,22 +28,18 @@ async function register() {
         const data = await response.json();
 
         if (data.success) {
-
             alert("Registration successful!");
-
             window.location.href = "login.html";
-
         } else {
-
-            alert(data.message);
+            alert(data.message || "Registration failed");
         }
 
     } catch (error) {
-
-        console.error(error);
-        alert("Unable to connect to server");
+        console.error("Registration error:", error);
+        alert("Unable to connect to server. Please try again.");
     }
 }
+
 
 async function login() {
 
@@ -57,13 +53,11 @@ async function login() {
 
     try {
 
-        const response = await fetch("http://localhost:5000/login", {
+        const response = await fetch(`${API_URL}/login`, {
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify({
                 email: email,
                 password: password
@@ -76,23 +70,18 @@ async function login() {
 
             alert("Login successful!");
 
-            // Store basic user information
             localStorage.setItem("userId", data.user.id);
             localStorage.setItem("userName", data.user.name);
             localStorage.setItem("userEmail", data.user.email);
 
-            // Redirect
             window.location.href = "ty.html";
 
         } else {
-
-            alert(data.message);
+            alert(data.message || "Login failed");
         }
 
     } catch (error) {
-
         console.error("Login error:", error);
-        alert("Unable to connect to server");
-
+        alert("Unable to connect to server. Please try again.");
     }
 }
