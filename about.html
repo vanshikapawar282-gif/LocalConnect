@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | LocalConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f9f6;
+            color: #263b32;
+            line-height: 1.7;
+        }
+
+        nav {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 10px #0000000d;
+        }
+
+        .logo {
+            color: #176b55;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #263b32;
+            margin: 0 8px;
+        }
+
+        nav a:hover {
+            color: #176b55;
+        }
+
+        .hero {
+            padding: 75px 8%;
+            background: linear-gradient(120deg, #dff3e7, #f8f3df);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #176b55;
+        }
+
+        .hero p {
+            max-width: 750px;
+            margin: auto;
+            font-size: 18px;
+        }
+
+        .container {
+            width: 88%;
+            max-width: 1150px;
+            margin: 45px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            color: #176b55;
+            font-size: 30px;
+        }
+
+        .about-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px #00000008;
+        }
+
+        .about-box h3 {
+            color: #176b55;
+            margin-bottom: 12px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #e0ebe4;
+        }
+
+        .card .icon {
+            font-size: 40px;
+        }
+
+        .card h3 {
+            margin: 12px 0;
+            color: #176b55;
+        }
+
+        .button {
+            display: inline-block;
+            background: #176b55;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        footer {
+            background: #173f34;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 750px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <a href="ty.html" class="logo">🌿 LocalConnect</a>
+
+        <div>
+            <a href="ty.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="events.html">Events</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>About LocalConnect</h1>
+
+        <p>
+            Connecting local businesses, citizens and community
+            welfare initiatives through one simple digital platform.
+        </p>
+
+        <a href="volunteer.html" class="button">
+            Join Our Community
+        </a>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <main class="container">
+
+        <section class="about-box">
+            <h3>Who We Are</h3>
+
+            <p>
+                LocalConnect is a web-based community platform designed
+                to bring people, local businesses and welfare services
+                together. It provides a common place where residents can
+                explore local products, report public park problems,
+                discover animal adoption opportunities and find support
+                services for senior citizens.
+            </p>
+        </section>
+
+        <section class="about-box">
+            <h3>Our Mission</h3>
+
+            <p>
+                Our mission is to encourage community participation,
+                promote small businesses and make local welfare services
+                easier to discover. We aim to use technology to improve
+                communication between residents and community initiatives.
+            </p>
+        </section>
+
+        <section class="about-box">
+            <h3>Our Vision</h3>
+
+            <p>
+                We envision a connected community where residents support
+                local entrepreneurs, care for public spaces, help animals
+                and assist people who need additional support.
+            </p>
+        </section>
+
+        <section>
+            <div class="section-title">
+                <h2>Our Main Objectives</h2>
+                <p>What LocalConnect aims to achieve</p>
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="icon">🛍️</div>
+                    <h3>Support Local Business</h3>
+                    <p>
+                        Help people discover local products and
+                        encourage small businesses.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="icon">🌳</div>
+                    <h3>Improve Public Spaces</h3>
+                    <p>
+                        Encourage residents to report park maintenance
+                        issues and care for shared spaces.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="icon">💚</div>
+                    <h3>Promote Community Welfare</h3>
+                    <p>
+                        Encourage animal welfare, volunteering and
+                        support for senior citizens.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <h3>🌿 LocalConnect</h3>
+
+        <p>
+            Supporting local businesses. Strengthening communities.
+        </p>
+
+        <p>© 2026 LocalConnect. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

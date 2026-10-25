@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Volunteer | LocalConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f9f6;
+            color: #263b32;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #263b32;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        nav a:hover {
+            color: #176b55;
+        }
+
+        .logo {
+            color: #176b55;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .hero {
+            padding: 65px 8%;
+            background: linear-gradient(120deg, #e0f4e8, #f8f3df);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            color: #176b55;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .container {
+            width: 88%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h2 {
+            color: #176b55;
+            font-size: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e0ebe4;
+            padding: 25px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .icon {
+            font-size: 40px;
+        }
+
+        .card h3 {
+            color: #176b55;
+            margin: 12px 0;
+        }
+
+        .form-box {
+            max-width: 650px;
+            margin: 45px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #0000000a;
+        }
+
+        .form-box h2 {
+            color: #176b55;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #cbdad1;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #176b55;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #10513f;
+        }
+
+        #message {
+            margin-top: 15px;
+        }
+
+        .note {
+            color: #61716b;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        footer {
+            background: #173f34;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 750px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="ty.html" class="logo">🌿 LocalConnect</a>
+
+        <div>
+            <a href="ty.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="events.html">Events</a>
+            <a href="park.html">Park Care</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Become a Community Volunteer</h1>
+
+        <p>
+            A little time and kindness can make a big difference.
+            Join community activities and help build a better neighbourhood.
+        </p>
+    </section>
+
+    <main class="container">
+
+        <div class="title">
+            <h2>Volunteer Opportunities</h2>
+            <p>Choose an activity that interests you.</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="icon">🌱</div>
+
+                <h3>Park Clean-up</h3>
+
+                <p>
+                    Help keep parks clean and encourage residents
+                    to care for public spaces.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">💛</div>
+
+                <h3>Senior Citizen Support</h3>
+
+                <p>
+                    Help older residents with basic errands,
+                    grocery assistance and friendly check-ins.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🐾</div>
+
+                <h3>Animal Welfare</h3>
+
+                <p>
+                    Spread awareness about responsible animal
+                    adoption and animal welfare.
+                </p>
+            </div>
+
+        </div>
+
+        <section class="form-box">
+
+            <h2>Volunteer Interest Form</h2>
+
+            <form id="volunteerForm">
+
+                <label for="name">Full Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    maxlength="100"
+                    required
+                    placeholder="Enter your full name"
+                >
+
+                <label for="email">Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    maxlength="150"
+                    required
+                    placeholder="Enter your email"
+                >
+
+                <label for="activity">Choose an Activity</label>
+
+                <select id="activity" name="activity" required>
+                    <option value="">Select an activity</option>
+                    <option value="Park Clean-up">Park Clean-up</option>
+                    <option value="Senior Citizen Support">
+                        Senior Citizen Support
+                    </option>
+                    <option value="Animal Welfare">Animal Welfare</option>
+                    <option value="Community Events">
+                        Community Events
+                    </option>
+                </select>
+
+                <label for="availability">Your Availability</label>
+
+                <select id="availability" name="availability" required>
+                    <option value="">Choose availability</option>
+                    <option value="Weekdays">Weekdays</option>
+                    <option value="Weekends">Weekends</option>
+                    <option value="Flexible">Flexible</option>
+                </select>
+
+                <label for="messageBox">Why would you like to volunteer?</label>
+
+                <textarea
+                    id="messageBox"
+                    name="message"
+                    maxlength="1000"
+                    placeholder="Write a short message"
+                ></textarea>
+
+                <button type="submit">Submit Interest</button>
+
+                <p id="message" role="status"></p>
+
+                <p class="note">
+                    Demonstration form: applications are not saved to the
+                    database yet.
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <h3>🌿 LocalConnect</h3>
+
+        <p>Supporting local businesses. Strengthening communities.</p>
+
+        <p>© 2026 LocalConnect. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("volunteerForm").addEventListener(
+            "submit",
+            function (event) {
+                event.preventDefault();
+
+                document.getElementById("message").textContent =
+                    "Thank you for your interest! This is a demonstration form. Your application has not been stored.";
+
+                document.getElementById("message").style.color = "#176b55";
+
+                this.reset();
+            }
+        );
+    </script>
+
+</body>
+</html>
