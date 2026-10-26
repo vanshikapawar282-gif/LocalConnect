@@ -273,25 +273,33 @@ def add_product():
     cursor = None
 
     try:
-
-        data = request.get_json(silent=True) or {}
+        data = request.form if request.form else (request.get_json(silent=True) or {})
 
         name = data.get("name", "").strip()
         product = data.get("product", "").strip()
         price = data.get("price", "")
 
         if not name or not product or price == "":
-
-            return jsonify({
-                "message": "Please fill in all fields"
-            }), 400
+            return """
+            <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+                Please fill in all fields
+            </h2>
+            <p style="text-align:center;">
+                <a href="/marketplace.html">Go Back</a>
+            </p>
+            """, 400
 
         price = float(price)
 
         if price < 0:
-            return jsonify({
-                "message": "Price cannot be negative"
-            }), 400
+            return """
+            <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+                Price cannot be negative
+            </h2>
+            <p style="text-align:center;">
+                <a href="/marketplace.html">Go Back</a>
+            </p>
+            """, 400
 
         connection = get_db_connection()
         cursor = connection.cursor()
@@ -303,9 +311,24 @@ def add_product():
 
         connection.commit()
 
-        return jsonify({
-            "message": "Product added successfully!"
-        }), 201
+        return """
+        <div style="text-align:center; margin-top:100px; font-family:Arial;">
+            <h1 style="color:#2e7d32;">✅ Request Submitted Successfully!</h1>
+            <p>Your product has been added to the LocalConnect marketplace.</p>
+            <br>
+            <a href="/marketplace.html"
+               style="background:#123e63;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Back to Marketplace
+            </a>
+            &nbsp;
+            <a href="/"
+               style="background:#f5a342;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Go to Home
+            </a>
+        </div>
+        """, 201
 
     except (Error, ValueError):
 
@@ -314,9 +337,17 @@ def add_product():
 
         app.logger.exception("Marketplace error")
 
-        return jsonify({
-            "message": "Could not add product. Check the entered price and database."
-        }), 500
+        return """
+        <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+            Could not submit the request
+        </h2>
+        <p style="text-align:center;">
+            Please check your details and try again.
+        </p>
+        <p style="text-align:center;">
+            <a href="/marketplace.html">Go Back</a>
+        </p>
+        """, 500
 
     finally:
 
@@ -338,18 +369,21 @@ def report_issue():
     cursor = None
 
     try:
-
-        data = request.get_json(silent=True) or {}
+        data = request.form if request.form else (request.get_json(silent=True) or {})
 
         name = data.get("name", "").strip()
         issue = data.get("issue", "").strip()
         location = data.get("location", "").strip()
 
         if not name or not issue or not location:
-
-            return jsonify({
-                "message": "Please fill in all fields"
-            }), 400
+            return """
+            <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+                Please fill in all required fields
+            </h2>
+            <p style="text-align:center;">
+                <a href="/park.html">Go Back</a>
+            </p>
+            """, 400
 
         connection = get_db_connection()
         cursor = connection.cursor()
@@ -361,9 +395,28 @@ def report_issue():
 
         connection.commit()
 
-        return jsonify({
-            "message": "Park issue reported successfully!"
-        }), 201
+        return """
+        <div style="text-align:center; margin-top:100px; font-family:Arial;">
+            <h1 style="color:#2e7d32;">✅ Request Submitted Successfully!</h1>
+            <p>Your park issue has been recorded successfully.</p>
+            <p>Thank you for helping improve our community.</p>
+            <br>
+
+            <a href="/park.html"
+               style="background:#123e63;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Report Another Issue
+            </a>
+
+            &nbsp;
+
+            <a href="/"
+               style="background:#f5a342;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Go to Home
+            </a>
+        </div>
+        """, 201
 
     except Error:
 
@@ -372,9 +425,17 @@ def report_issue():
 
         app.logger.exception("Park report error")
 
-        return jsonify({
-            "message": "Could not save the park report"
-        }), 500
+        return """
+        <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+            Could not submit the report
+        </h2>
+        <p style="text-align:center;">
+            Please try again.
+        </p>
+        <p style="text-align:center;">
+            <a href="/park.html">Go Back</a>
+        </p>
+        """, 500
 
     finally:
 
@@ -383,7 +444,6 @@ def report_issue():
 
         if connection and connection.is_connected():
             connection.close()
-
 
 # ==================================================
 # ANIMAL ADOPTION
@@ -396,18 +456,21 @@ def adopt():
     cursor = None
 
     try:
-
-        data = request.get_json(silent=True) or {}
+        data = request.form if request.form else (request.get_json(silent=True) or {})
 
         name = data.get("name", "").strip()
         animal = data.get("animal", "").strip()
         phone = data.get("phone", "").strip()
 
         if not name or not animal or not phone:
-
-            return jsonify({
-                "message": "Please fill in all fields"
-            }), 400
+            return """
+            <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+                Please fill in all required fields
+            </h2>
+            <p style="text-align:center;">
+                <a href="/adoption.html">Go Back</a>
+            </p>
+            """, 400
 
         connection = get_db_connection()
         cursor = connection.cursor()
@@ -419,9 +482,28 @@ def adopt():
 
         connection.commit()
 
-        return jsonify({
-            "message": "Adoption request submitted successfully!"
-        }), 201
+        return """
+        <div style="text-align:center; margin-top:100px; font-family:Arial;">
+            <h1 style="color:#2e7d32;">🐾 Adoption Request Submitted!</h1>
+            <p>Thank you for your interest in giving an animal a loving home.</p>
+            <p>Our team will contact you soon.</p>
+            <br>
+
+            <a href="/adoption.html"
+               style="background:#123e63;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Back to Adoption
+            </a>
+
+            &nbsp;
+
+            <a href="/"
+               style="background:#f5a342;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Go to Home
+            </a>
+        </div>
+        """, 201
 
     except Error:
 
@@ -430,9 +512,17 @@ def adopt():
 
         app.logger.exception("Adoption error")
 
-        return jsonify({
-            "message": "Could not save adoption request"
-        }), 500
+        return """
+        <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+            Could not submit adoption request
+        </h2>
+        <p style="text-align:center;">
+            Please try again.
+        </p>
+        <p style="text-align:center;">
+            <a href="/adoption.html">Go Back</a>
+        </p>
+        """, 500
 
     finally:
 
@@ -441,7 +531,6 @@ def adopt():
 
         if connection and connection.is_connected():
             connection.close()
-
 
 # ==================================================
 # SENIOR CITIZEN SUPPORT
@@ -454,18 +543,21 @@ def senior_help():
     cursor = None
 
     try:
-
-        data = request.get_json(silent=True) or {}
+        data = request.form if request.form else (request.get_json(silent=True) or {})
 
         name = data.get("name", "").strip()
         help_request = data.get("help", "").strip()
         phone = data.get("phone", "").strip()
 
         if not name or not help_request or not phone:
-
-            return jsonify({
-                "message": "Please fill in all fields"
-            }), 400
+            return """
+            <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+                Please fill in all required fields
+            </h2>
+            <p style="text-align:center;">
+                <a href="/senior.html">Go Back</a>
+            </p>
+            """, 400
 
         connection = get_db_connection()
         cursor = connection.cursor()
@@ -477,9 +569,28 @@ def senior_help():
 
         connection.commit()
 
-        return jsonify({
-            "message": "Support request submitted successfully!"
-        }), 201
+        return """
+        <div style="text-align:center; margin-top:100px; font-family:Arial;">
+            <h1 style="color:#2e7d32;">✅ Support Request Submitted!</h1>
+            <p>Your request has been received successfully.</p>
+            <p>Our community support team will contact you soon.</p>
+            <br>
+
+            <a href="/senior.html"
+               style="background:#123e63;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Submit Another Request
+            </a>
+
+            &nbsp;
+
+            <a href="/"
+               style="background:#f5a342;color:white;padding:12px 20px;
+                      text-decoration:none;border-radius:6px;">
+                Go to Home
+            </a>
+        </div>
+        """, 201
 
     except Error:
 
@@ -488,9 +599,17 @@ def senior_help():
 
         app.logger.exception("Senior support error")
 
-        return jsonify({
-            "message": "Could not save support request"
-        }), 500
+        return """
+        <h2 style="text-align:center; margin-top:100px; color:#d9534f;">
+            Could not submit support request
+        </h2>
+        <p style="text-align:center;">
+            Please try again.
+        </p>
+        <p style="text-align:center;">
+            <a href="/senior.html">Go Back</a>
+        </p>
+        """, 500
 
     finally:
 
@@ -499,6 +618,9 @@ def senior_help():
 
         if connection and connection.is_connected():
             connection.close()
+
+
+
 
 
 # ==================================================
